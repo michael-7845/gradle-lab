@@ -13,25 +13,24 @@ import spock.lang.Specification
 
 /**
  [origin_title:,
- summary:ÄÇÒ»Äê£¬ÊÇÌıÄªÔúÌØ¡¢µööÔÓãºÍ¼ÒÍ¥ÆÆÁÑµÄÒ»Äê¡£Ëµµ½¼ÒÍ¥ÆÆÁÑ£¬Ä¸Ç×¹Ö×Ô¼ºµ±³õÃ»ÓĞÕÒµ½ºÃÄĞÈË£¬¸¸Ç×ÔòÈÏÎªµ±Ê±ÊÇ±»ºüÀê¾«ÃÔ×¡ÁËÑÛ£¬Ê§³£µÄÊÇÄ¸Ç×£¬µ«³öÎÊÌâµÄÊÇ¸¸Ç×¡­¡­¡£,
+ summary:é‚£ä¸€å¹´ï¼Œæ˜¯å¬è«æ‰ç‰¹ã€é’“é²ˆé±¼å’Œå®¶åº­ç ´è£‚çš„ä¸€å¹´ã€‚è¯´åˆ°å®¶åº­ç ´è£‚ï¼Œæ¯äº²æ€ªè‡ªå·±å½“åˆæ²¡æœ‰æ‰¾åˆ°å¥½ç”·äººï¼Œçˆ¶äº²åˆ™è®¤ä¸ºå½“æ—¶æ˜¯è¢«ç‹ç‹¸ç²¾è¿·ä½äº†çœ¼ï¼Œå¤±å¸¸çš„æ˜¯æ¯äº²ï¼Œä½†å‡ºé—®é¢˜çš„æ˜¯çˆ¶äº²â€¦â€¦ã€‚,
  image:https://img3.doubanio.com/mpic/s1747553.jpg,
  images:[small:https://img3.doubanio.com/spic/s1747553.jpg, large:https://img3.doubanio.com/lpic/s1747553.jpg, medium:https://img3.doubanio.com/mpic/s1747553.jpg],
- author:[[ÈÕ] Æ¬É½¹§Ò»],
- catalog: ,
- translator:[Ô¥ÈË],
+ author:[[æ—¥] ç‰‡å±±æ­ä¸€],
+ catalog:,
+ translator:[è±«äºº],
  rating:[average:7.1, min:0, max:10, numRaters:364],
  alt:https://book.douban.com/subject/1220562/,
- binding:Æ½×°,
- title:ÂúÔÂÖ®Ò¹°×¾¨ÏÖ,
+ binding:å¹³è£…, title:æ»¡æœˆä¹‹å¤œç™½é²¸ç°,
  url:https://api.douban.com/v2/book/1220562,
- tags:[[count:143, name:Æ¬É½¹§Ò», title:Æ¬É½¹§Ò»], [count:69, name:ÈÕ±¾, title:ÈÕ±¾], [count:65, name:ÈÕ±¾ÎÄÑ§, title:ÈÕ±¾ÎÄÑ§], [count:41, name:Ğ¡Ëµ, title:Ğ¡Ëµ], [count:33, name:ÂúÔÂÖ®Ò¹°×¾¨ÏÖ, title:ÂúÔÂÖ®Ò¹°×¾¨ÏÖ], [count:16, name:°®Çé, title:°®Çé], [count:10, name:¼ƒÛ, title:¼ƒÛ], [count:9, name:Íâ¹úÎÄÑ§, title:Íâ¹úÎÄÑ§]],
+ tags:[[count:143, name:ç‰‡å±±æ­ä¸€, title:ç‰‡å±±æ­ä¸€], [count:69, name:æ—¥æœ¬, title:æ—¥æœ¬], [count:65, name:æ—¥æœ¬æ–‡å­¦, title:æ—¥æœ¬æ–‡å­¦], [count:41, name:å°è¯´, title:å°è¯´], [count:33, name:æ»¡æœˆä¹‹å¤œç™½é²¸ç°, title:æ»¡æœˆä¹‹å¤œç™½é²¸ç°], [count:16, name:çˆ±æƒ…, title:çˆ±æƒ…], [count:10, name:ç´”æ„›, title:ç´”æ„›], [count:9, name:å¤–å›½æ–‡å­¦, title:å¤–å›½æ–‡å­¦]],
  alt_title:,
  author_intro:,
  pages:180,
- price:15.00Ôª,
+ price:15.00å…ƒ,
  subtitle:,
  isbn13:9787543632608,
- publisher:Çàµº³ö°æÉç,
+ publisher:é’å²›å‡ºç‰ˆç¤¾,
  isbn10:7543632608,
  id:1220562,
  pubdate:2005-1]
@@ -45,7 +44,7 @@ class BasicDemo extends Specification {
 
     def "simple get method"() {
         expect:
-        Response response = given().when().log().all().post("/1220562").then().extract() //.body("title", equalTo("ÂúÔÂÖ®Ò¹°×¾¨ÏÖ"));
+        Response response = given().when().log().all().post("/1220562").then().body("title", equalTo("æ»¡æœˆä¹‹å¤œç™½é²¸ç°")).extract()
         print response.jsonPath().get();
     }
 
@@ -59,5 +58,11 @@ class BasicDemo extends Specification {
 //        response.then().body("rating.average", is(new BigDecimal(7.1)))
 //        response.then().assertThat().body(matchesJsonSchemaInClasspath("products-schema.json"));
 //        response.then().body('$', hasItems(1, 2, 3)) // An empty string "" would work as well
+    }
+
+    def "example 3 - complex parsing and validation"() {
+        expect:
+        given().when().post("/1220562").then().body("tags.findAll { it.count < 20 }.title", hasItems("çˆ±æƒ…", "ç´”æ„›", "å¤–å›½æ–‡å­¦"));
+        given().when().post("/1220562").then().body("tags.collect { it.count }.sum()", greaterThan(50));
     }
 }
