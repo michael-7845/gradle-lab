@@ -24,6 +24,7 @@ targetCompatibility = 1.8
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.1'
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+    testCompile 'io.rest-assured:rest-assured:3.0.3'
     testCompile 'io.rest-assured:scala-support:3.0.3'
     testCompile "junit:junit:4.12"
 }
