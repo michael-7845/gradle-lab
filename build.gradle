@@ -21,7 +21,20 @@ jar {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+ext {
+    guavaVersion = '21.0'
+    apacheCommonsLang3Version = '3.5'
+    commonsioVersion = '1.3.2'
+    jacksonVersion = '2.8.0'
+}
+
 dependencies {
+    compile "org.apache.commons:commons-lang3:${apacheCommonsLang3Version}"
+    compile "com.google.guava:guava:${guavaVersion}"
+    compile "commons-io:commons-io:${commonsioVersion}"
+    compile "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
+    compile "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
+    compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     compile 'org.codehaus.groovy:groovy-all:2.4.1'
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
     testCompile 'io.rest-assured:rest-assured:3.0.3'

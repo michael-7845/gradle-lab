@@ -1,0 +1,223 @@
+{
+  "payments": {
+    "id": {
+      "type": "integer"
+    },
+    "token": {
+      "type": "string"
+    },
+    "paymentAmount": {
+      "type": "number"
+    },
+    "paymentStatus": {
+      "type": "string"
+    },
+    "creditCardStatus": {
+      "type": "string"
+    },
+    "comment": {
+      "type": "string"
+    }
+  },
+  "createdAt": {
+    "type": "string"
+  },
+  "orderLines": {
+    "orderLineId": {
+      "orderId": {
+        "type": "string"
+      },
+      "number": {
+        "type": "integer"
+      }
+    },
+    "fulfillmentLocationId": {
+      "type": "string"
+    },
+    "productId": {
+      "type": "string"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "unitPrice": {
+      "type": "number"
+    },
+    "lineSubTotal": {
+      "type": "number"
+    },
+    "lineTotal": {
+      "type": "number"
+    },
+    "lineTax": {
+      "type": "number"
+    },
+    "lineTaxPercent": {
+      "type": "number"
+    },
+    "unitDiscount": {
+      "type": "number"
+    },
+    "lineDiscount": {
+      "type": "number"
+    },
+    "lineStatus": {
+      "type": "string"
+    },
+    "size": {
+      "type": "string"
+    },
+    "color": {
+      "type": "string"
+    },
+    "fileName": {
+      "type": "string"
+    },
+    "reviewReason": {
+      "code": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      }
+    },
+    "modifiedAt": {
+      "type": "string"
+    },
+    "invoicedAt": {
+      "type": "string"
+    }
+  },
+  "shippingMethod": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "defaultFlag": {
+      "type": "boolean"
+    }
+  },
+  "modifiedAt": {
+    "type": "string"
+  },
+  "orderNumber": {
+    "type": "string"
+  },
+  "customerNumber": {
+    "type": "string"
+  },
+  "shFee": {
+    "type": "number"
+  },
+  "subTotal": {
+    "type": "number"
+  },
+  "discount": {
+    "type": "number"
+  },
+  "tax": {
+    "type": "number"
+  },
+  "currency": {
+    "type": "string"
+  },
+  "channel": {
+    "type": "string"
+  },
+  "status": {
+    "type": "string"
+  },
+  "shippingAddress": {
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "houseNumber": {
+      "type": "string"
+    },
+    "building": {
+      "type": "string"
+    },
+    "apartment": {
+      "type": "string"
+    },
+    "addressLine1": {
+      "type": "string"
+    },
+    "addressLine2": {
+      "type": "string"
+    },
+    "county": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "zip": {
+      "type": "string"
+    },
+    "emailAddress": {
+      "type": "string"
+    }
+  },
+  "billingAddress": {
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "houseNumber": {
+      "type": "string"
+    },
+    "building": {
+      "type": "string"
+    },
+    "apartment": {
+      "type": "string"
+    },
+    "addressLine1": {
+      "type": "string"
+    },
+    "addressLine2": {
+      "type": "string"
+    },
+    "county": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "zip": {
+      "type": "string"
+    },
+    "emailAddress": {
+      "type": "string"
+    }
+  },
+  "total": {
+    "type": "number"
+  }
+}

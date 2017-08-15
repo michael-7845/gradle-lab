@@ -1,0 +1,10 @@
+{
+  "name": "michael yu",
+  "title": "QE",
+  "type": "old man",
+  "likes": {
+    "language": [ "java" ],
+    "script": [ "python", "perl", "shell", "groovy", "javascript" ]
+  },
+  "age": 18
+}
