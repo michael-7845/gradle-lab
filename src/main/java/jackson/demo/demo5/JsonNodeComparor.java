@@ -2,11 +2,14 @@ package jackson.demo.demo5;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.CharEncoding;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by I340951 on 8/15/2017.
@@ -20,39 +23,44 @@ public class JsonNodeComparor {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(json);
         JsonNode node2 = mapper.readTree(json2);
-//        compareJson(node, node2,null);
+        compareJson(node, node2, null);
     }
-//    public static void compareJson(JSONObject json1, JSONObject json2, String key) {
-//        Iterator<String> i = json1.keys();
-//        while (i.hasNext()) {
-//            key = i.next();
-//            compareJson(json1.get(key), json2.get(key),key);
-//        }
-//    }
-//    public static void compareJson(Object json1,Object json2,String key) {
-//        if ( json1 instanceof JSONObject ) {
-//            compareJson((JSONObject) json1 ,(JSONObject) json2,key);
-//        }else if ( json1 instanceof JSONArray ) {
-//            compareJson((JSONArray) json1 ,(JSONArray) json2,key);
-//        }else if(json1 instanceof String ){
-//            compareJson((String) json1 ,(String) json2,key);
-//        }else {
-//            compareJson(json1.toString(), json2.toString(), key);
-//        }
-//    }
-//
-//    public static void compareJson(String str1,String str2,String key) {
-//        if (!str1.equals(str2)) {
-//            System.out.println("key:"+key+",json1:"+ str1 +",json2:"+str2);
-//        }
-//    }
-//    public static void compareJson(JSONArray json1,JSONArray json2,String key) {
-//        Iterator i1= json1.iterator();
-//        Iterator i2= json2.iterator();
-//        while ( i1.hasNext()) {
-//            compareJson(i1.next(), i2.next(),key);
-//        }
-//    }
+
+    public static void compareJson(ObjectNode json1, ObjectNode json2, String key) {
+//        Iterator<Map.Entry<String, JsonNode>> i = json1.fields();
+        Iterator<String> i = json1.fieldNames();
+        while (i.hasNext()) {
+            key = i.next();
+            compareJson(json1.get(key), json2.get(key), key);
+        }
+    }
+
+    public static void compareJson(Object json1, Object json2, String key) {
+        if ( json1 instanceof ObjectNode ) {
+            compareJson((ObjectNode) json1 ,(ObjectNode) json2, key);
+        }else if ( json1 instanceof ArrayNode) {
+            compareJson((ArrayNode) json1 ,(ArrayNode) json2, key);
+        }else if(json1 instanceof String ){
+            compareJson((String) json1 ,(String) json2, key);
+        }else {
+            compareJson(json1.toString(), json2.toString(), key);
+        }
+    }
+
+    public static void compareJson(String str1, String str2, String key) {
+        if (!str1.equals(str2)) {
+            System.out.println("key: "+key+", json1: "+ str1 +", json2: "+str2);
+        }
+    }
+
+    public static void compareJson(ArrayNode json1, ArrayNode json2, String key) {
+        Iterator i1= json1.iterator();
+        Iterator i2= json2.iterator();
+        while ( i1.hasNext()) {
+            compareJson(i1.next(), i2.next(), key);
+        }
+    }
+
 //    public static JSONObject getJson(String url) {
 //        try {
 //            URL url1 = new URL(url);

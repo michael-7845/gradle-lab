@@ -30,7 +30,19 @@ class MyMapLab {
         println list.unitPrice
     }
 
+    static void demo4() {
+        def m1 = [ a: 1, b: 2, c: 3]
+        def m2 = [ a: 2, b: 3, c: 4, d: 4]
+//        println m1.putAll(m2)
+        m2.each { key, value ->
+            m1.computeIfAbsent(key, {it ->
+                println it;
+                return value})
+        }
+        println m1
+    }
+
     static void main(String... args) {
-        demo3()
+        demo4()
     }
 }
