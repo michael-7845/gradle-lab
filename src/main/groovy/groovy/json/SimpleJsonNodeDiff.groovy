@@ -41,6 +41,7 @@ class SimpleJsonNodeDiff {
     static Boolean flag = true;
     static void compareJson(String str1, String str2, String key) {
         if (!str1.equals(str2)) {
+            if(key == null) key = "."
             result.append("[${key}] - '${str1}' : '${str2}' , ")
             flag = false
         }

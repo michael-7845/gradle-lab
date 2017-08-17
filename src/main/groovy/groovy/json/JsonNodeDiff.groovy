@@ -16,23 +16,23 @@ class JsonNodeDiff {
     def a_value, b_value, a_node, b_node
     
     Map<String, DiffResult> compare() {
+        // prepare
         result.clear()
         result_temp.clear()
 
         ObjectMapper mapper = new ObjectMapper()
         if(a_node == null) a_node = mapper.readTree(a_value)
         if(b_node == null) b_node = mapper.readTree(b_value)
-
+        // a against b
         compareJson(a_node, b_node, null)
         result.putAll(result_temp)
-
+        // b against a
         result_temp.clear()
         compareJson(b_node, a_node, null)
         result_temp.each { key, value ->
             result.computeIfAbsent(key, { it ->
                 new DiffResult(key: value.key, a_value: value.b_value, b_value: value.a_value) } )
         }
-
         return result
     }
 
@@ -40,10 +40,6 @@ class JsonNodeDiff {
         String t = IOUtils.toString((new JsonNodeDiff()).getClass().getResourceAsStream("/json/TestJson.json"), CharEncoding.UTF_8)
         String a = IOUtils.toString((new JsonNodeDiff()).getClass().getResourceAsStream("/json/TestJson2.json"), CharEncoding.UTF_8)
         def diff = new JsonNodeDiff(a_value: t, b_value: a)
-//        ObjectMapper mapper = new ObjectMapper()
-//        def a_node = mapper.readTree(t)
-//        def b_node = mapper.readTree(a)
-//        diff = new JsonNodeDiff(a_node: a_node, b_node: b_node)
         diff.compare().each { entry -> println entry}
     }
 
