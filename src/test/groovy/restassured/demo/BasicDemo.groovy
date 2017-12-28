@@ -1,6 +1,9 @@
 package restassured.demo
 
+import com.google.common.net.HttpHeaders
+import io.restassured.builder.RequestSpecBuilder
 import io.restassured.path.json.config.JsonPathConfig
+import spock.lang.IgnoreRest
 
 import static io.restassured.RestAssured.*
 import static io.restassured.config.JsonConfig.jsonConfig
@@ -37,15 +40,24 @@ import spock.lang.Specification
  */
 class BasicDemo extends Specification {
 
+    static GetQueueMessageDto _1_MESSAGE = new GetQueueMessageDto(count: 1,
+            requeue: true, encoding: "auto")
+
     def setup(){
-        baseURI = "https://api.douban.com/v2/book";
+//        baseURI = "https://api.douban.com/v2/book"
+        baseURI = "http://localhost:15672"
 //        port = 80;
     }
 
     def "simple get method"() {
         expect:
         Response response = given().when().log().all().post("/1220562").then().body("title", equalTo("满月之夜白鲸现")).extract()
-        print response.jsonPath().get();
+        println response.jsonPath().get();
+        println response.asString()
+    }
+
+    def "example 2 - BIG_DECIMAL()"() {
+
     }
 
     def "example 1 - json"() {
@@ -64,5 +76,25 @@ class BasicDemo extends Specification {
         expect:
         given().when().post("/1220562").then().body("tags.findAll { it.count < 20 }.title", hasItems("爱情", "純愛", "外国文学"));
         given().when().post("/1220562").then().body("tags.collect { it.count }.sum()", greaterThan(50));
+    }
+
+    @IgnoreRest
+    def "example 4 - rabbit mq api"() {
+        when:
+        RequestSpecBuilder specBuilder = new RequestSpecBuilder()
+        specBuilder.addHeader('Authorization', "Basic Z3Vlc3Q6Z3Vlc3Q=")
+        specBuilder.addHeader('Content-Type', "application/json")
+//        Response
+        def response = given() //.urlEncodingEnabled(false)
+                .pathParam("vhost", "/")
+                .spec(specBuilder.build())
+                .body(_1_MESSAGE)
+                .when().log().all()
+                .post('/api/queues/{vhost}/lines_shipped_event_queue/get').then().log().all()
+//                .extract()
+//        println response.jsonPath().get()
+//        println response.response().asString()
+        then:
+        assert true
     }
 }

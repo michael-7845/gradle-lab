@@ -13,7 +13,14 @@ public class MyListLab {
 
     }
 
+    static void demo2() {
+        def list1 = [1,2,3]
+        for(it in list1) {
+            println it
+        }
+    }
+
     static void main(String... args) {
-        demo1()
+        demo2()
     }
 }

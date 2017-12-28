@@ -17,8 +17,15 @@ class SimpleJsonNodeDiff {
     }
 
     static void compareJson(ObjectNode aValue, ObjectNode bValue, String key) {
-        Iterator<String> i = aValue.fieldNames()
+        if(aValue == null) {
+            updateResult("null", "not null", key)
+            return
+        } else if(bValue == null) {
+            updateResult("not null", "null", key)
+            return
+        }
 
+        Iterator<String> i = aValue.fieldNames()
         while (i.hasNext()) {
             def field_name = i.next()
             compareJson(aValue.get(field_name), bValue.get(field_name), field_name)
@@ -39,11 +46,18 @@ class SimpleJsonNodeDiff {
 
     static StringBuffer result = new StringBuffer();
     static Boolean flag = true;
+    private static void updateResult(String str1, String str2, String key) {
+        if(key == null) key = "."
+        result.append("[${key}] - '${str1}' : '${str2}' , ")
+        flag = false
+    }
+
     static void compareJson(String str1, String str2, String key) {
         if (!str1.equals(str2)) {
-            if(key == null) key = "."
-            result.append("[${key}] - '${str1}' : '${str2}' , ")
-            flag = false
+//            if(key == null) key = "."
+//            result.append("[${key}] - '${str1}' : '${str2}' , ")
+//            flag = false
+            updateResult(str1, str2, key)
         }
     }
 

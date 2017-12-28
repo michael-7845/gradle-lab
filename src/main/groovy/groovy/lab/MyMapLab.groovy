@@ -42,7 +42,17 @@ class MyMapLab {
         println m1
     }
 
+    static void demo5() {
+        def m1 = [a: 1, b: 2, c: 3]
+        def m2 = [a: 2, b: 3, c: 4, d: 4]
+
+        for(item in m1) {
+            println item.getKey()
+            println item.getValue()
+        }
+    }
+
     static void main(String... args) {
-        demo4()
+        demo5()
     }
 }

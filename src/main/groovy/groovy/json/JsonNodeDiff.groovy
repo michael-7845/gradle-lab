@@ -56,10 +56,20 @@ class JsonNodeDiff {
     static void main(String[] args) throws IOException {
 //        aValue_against_bValue()
 //        bValue_against_aValue()
-        demo2()
+        demo()
     }
 
     static void compareJson(ObjectNode aValue, ObjectNode bValue, String key) {
+        if(aValue == null) {
+            result_temp[key] = new DiffResult(key: key != null ? "${key}" : "\$.",
+                    a_value: "null", b_value: "not null")
+            return
+        } else if(bValue == null) {
+            result_temp[key] = new DiffResult(key: key != null ? "${key}" : "\$.",
+                    a_value: "not null", b_value: "null")
+            return
+        }
+
         Iterator<String> i = aValue.fieldNames()
 
         while (i.hasNext()) {

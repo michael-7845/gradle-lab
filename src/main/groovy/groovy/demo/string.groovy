@@ -16,8 +16,10 @@ println fullname-firstname
 println fullname.padLeft(15)
 
 //关于字符串的截取
+println '[n..m]'
 println fullname[0..3]
 println fullname[-4..-1]
+println fullname[0..-3]
 //下面的方式比较特别,取第5个字符,以及3,2,1位置字符连接起来
 assert fullname[5,3..1]=='Beta'
 
@@ -63,3 +65,13 @@ words = ['bob', 'alpha', 'rotator', 'omega', 'reviver']
 bigPalindromes= words.findAll{w-> w == w.reverse() && w.size() > 5}
 assert bigPalindromes== ['rotator', 'reviver']
 println bigPalindromes
+
+//GString
+String name = 'count'
+int value1 = 23
+int value2 = 22
+GString s = "The value of $name is ${value1+value2}"
+println s
+String my_name = "michael"
+GString full_name = "${my_name} yu"
+println full_name
