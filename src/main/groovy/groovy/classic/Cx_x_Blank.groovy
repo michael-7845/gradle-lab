@@ -9,7 +9,7 @@ class Cx_x_Blank {
     static void sample1() {
     }
 
-    static void demo2() {
+    static void sample2() {
 
     }
 
@@ -18,6 +18,6 @@ class Cx_x_Blank {
     }
 
     static void main(String... args) {
-        demo1()
+        _main()
     }
 }
