@@ -14,7 +14,7 @@ class Cx_x_Blank {
     }
 
     static void _main() {
-
+        sample1()
     }
 
     static void main(String... args) {
