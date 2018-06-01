@@ -18,9 +18,23 @@ public class MyListLab {
         for(it in list1) {
             println it
         }
+        println (1 in list1)
+    }
+
+    static void demo3() {
+        def list1 = [1, 2, 3]
+        def list2 = list1.collect{it+3}
+        println list2
+    }
+
+    static void demo4() {
+        def list1 = [1, 2, 3]
+        list1.each {
+            it -> println it
+        }
     }
 
     static void main(String... args) {
-        demo2()
+        demo4()
     }
 }

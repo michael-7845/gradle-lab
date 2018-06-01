@@ -52,7 +52,26 @@ class MyMapLab {
         }
     }
 
+    static void demo6() {
+        def m1 = ['a': 'x', 'b': 'y', 'c': 'z']
+
+        for(item in m1) {
+            println item.getKey()
+            println item.getValue()
+        }
+
+        def m2 = ['a': ['loc1': 1, 'loc2': 2],
+                  'b': ['loc1': 3, 'loc2': 4],
+                  'c': ['loc1': 5, 'loc2': 6]]
+        m2.each { product, value ->
+            value.each {
+                location, number ->
+                    println "$product $location $number"
+            }
+        }
+    }
+
     static void main(String... args) {
-        demo5()
+        demo6()
     }
 }
