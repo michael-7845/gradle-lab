@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customers>
+    <corporate>
+        <customer name="bill gates" company="microsoft"></customer>
+        <customer name="steve jobs" company="apple"></customer>
+        <customer name="bill dyh" company="sun"></customer>
+    </corporate>
+    <consumer>
+        <customer name="jone Doe"></customer>
+        <customer name="jane Doe"></customer>
+    </consumer>
+</customers>

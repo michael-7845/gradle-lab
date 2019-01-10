@@ -52,6 +52,8 @@ class C9_1 {
         def greeting = 'hello'
         def clos = {param -> println "${greeting} ${param}"}
 
+        println clos.getClass()
+
         demo(clos)
 
 //        demo() clos // exception ... java.lang.NullPointerException: Cannot invoke method call() on null object
@@ -73,7 +75,7 @@ class C9_1 {
     }
 
     static void _main() {
-        sample7()
+        sample6()
     }
 
     static void main(String... args) {

@@ -1,5 +1,7 @@
 package groovy.lab
 
+import java.util.regex.Pattern
+
 /**
  * Author: Michael Yu
  * Dept: CAAS
@@ -62,15 +64,32 @@ class MyRELab {
     static void demo2() {
         def matcher = ("^([a-zA-Z0-9-]+)-approuter-caas2-sap-stage.cfapps.us10.hana.ondemand.com\$" =~ /.*(-app.*com)\$/)
         println matcher[0][1]
+
+        def location = 'https://automation-test-approuter-caas2-sap-stage.cfapps.us10.hana.ondemand.com/order-export/jobs/997dcf8b-97e4-4dc5-946c-75f75fc35c3d/executions/8f11d285-2dec-4773-aebe-4236c30157a5'
+        def executionId = (location =~ /.*executions\/(.*)$/)
+        println executionId[0][1]
     }
 
     static void demo3() {
         def matcher = ("successMichaelYu@simulator.amazonses.com" =~ /(.*)@(.*)/)
         println matcher[0][1]
+
+        def s = 'https://caasstagemy-approuter-caas2-sap-stage.cfapps.us10.hana.ondemand.com/order-export/jobs/c213b9a9-1d6a-43bf-b379-071b389ac17b'
+        matcher = (s =~ /order-export\/jobs\/(.*)$/)
+        println matcher[0][1]
+    }
+
+    static String extract(String s, Pattern p) {
+        def matcher = (s =~ p)
+        return matcher[0][1]
+    }
+
+    static void demo4() {
+        println extract("successMichaelYu@simulator.amazonses.com", ~/(.*)@(.*)/)
     }
 
     static void _main() {
-        demo3()
+        demo4()
     }
 
     static void main(String... args) {

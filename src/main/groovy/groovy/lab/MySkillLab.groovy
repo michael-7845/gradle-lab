@@ -5,8 +5,17 @@ package groovy.lab
  * Dept: CAAS
  * Team: Mooncake
  */
-class MyBlankTemplate {
+class MySkillLab {
     static void demo1() {
+        def a = null
+        def b = a ?: 'none'
+        println b
+        println b.size()
+
+        a = [b:2, c:3]
+        println a?.b
+        a = null
+        println a?.b
     }
 
     static void demo2() {
