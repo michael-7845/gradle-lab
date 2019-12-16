@@ -42,7 +42,21 @@ This is some output to the new file."""
     static void _copy_file() {
         File src = new File("./mydir/test.txt");
         File dst = new File("./mydir/dest.txt");
-        dst << src; // "./mydir/test.txt" in dst
+        dst << src; // error: "./mydir/test.txt" in dst
+    }
+
+    static void _copy_file2() {
+        File src = new File("./mydir/test.txt")
+        File dst = new File("./mydir/dest.txt")
+        dst << src.text // << means append at the end
+    }
+
+    static void _copy_file3() {
+        File src = new File("./mydir/test.txt")
+        File dst = new File("./mydir/dest.txt")
+        dst.withPrintWriter { printWriter ->
+            printWriter.println(src.text)
+        }
     }
 
     static void _file_property() {
@@ -202,14 +216,16 @@ This is some output to the new file."""
     static void _main() {
 //        demo1()
 //        _read_file()
-        _write_file()
+//        _write_file()
 //        _delete_file()
 //        _copy_file()
+//        _copy_file2()
+        _copy_file3()
 //        _file_property()
 //        _dir()
 
 //        _read_file2()
-        _write_file2()
+//        _write_file2()
 //        _parse_xml()
 //        _parse_property()
 //        _dir2()

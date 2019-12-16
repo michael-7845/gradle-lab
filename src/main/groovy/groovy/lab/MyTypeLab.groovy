@@ -33,15 +33,20 @@ class MyTypeLab {
     }
 
     static void demo2() {
+        println 1.getClass()
+        Map map = ['a': 1]
+        println map.getClass()
 
+        println (1 instanceof Integer)
+        println (map instanceof Map)
     }
 
     static void _main() {
-
+        demo2()
     }
 
     static void main(String... args) {
-        demo1()
+        _main()
     }
 
 

@@ -26,12 +26,21 @@ class MyClosureLab {
         func(clo)
     }
 
+    def clos2 = {x, y -> (x+y)}
+    def clos3 = {z -> clos2(z, 10) }
+    static void demo3() {
+        MyClosureLab mcl = new MyClosureLab()
+        println mcl.clos3.getClass()
+        println mcl.clos3(1)
+    }
+
     static void _main() {
-        demo1()
+//        demo1()
+//        demo2(10)
+        demo3()
     }
 
     static void main(String... args) {
-        demo2(10)
         _main()
     }
 }

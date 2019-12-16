@@ -115,14 +115,17 @@ class MyMapLab {
         String s1 = 'a'
         String s2 = 'b'
         String s3 = 'c'
-        def m2 = [(s1): 'loc1', (s2): 'loc2', (s3): 'loc3']
+        String s4 = 'abc'
+        def m2 = [(s1): 'loc1', (s2): 'loc2', (s3): 'loc3', abc: 'loc4']
         println (s1 in m2)
         println ('a' in m2)
         println ('s1' in m2)
+        println (s4 in m2)
+        println ('abc' in m2)
     }
 
     static void demo11() {
-        Map<String, Integer> foo = ["foo": 1, "bar": 2]
+        Map<String, Integer> foo = ["foo": 1, "bar": 2, "level_a": ["foo": 1, "bar": 2]]
         Map<String, Integer> bar = foo.clone()
         foo["foo"] = 3
         assert(bar["foo"] == 1)
@@ -133,6 +136,10 @@ class MyMapLab {
         println foo
         println bar
         println bar.containsKey("foo")
+
+        bar.level_a.remove("foo")
+        println foo
+        println bar
     }
 
     static void demo12() {
@@ -268,9 +275,314 @@ class MyMapLab {
         println map2.collect { it.subMap(['name', 'languages']) }
     }
 
+    static void demo19() {
+        Map m1 = [a: 1, b:2, c:3, d:4, e:5, f:6, g:7]
+        Map m2 = m1.subMap(m1.keySet().toList() - 'g')
+        println m1
+        println m2
+        m1.remove('d')
+        println m1
+        println m2
+    }
 
+    static void demo20() {
+        Map m1 = [a: 1, b:2, c:3, d:4, e:5, f:6, g:7]
+        Map m2 = [a: 1, b:2, c:3, d:4, e:5, f:6] // - g:7
+        Map m3 = [a: 1, b:2, c:3, d:4, e:5, f:6, g:7, h:8] // + h:8
+        Map m4 = [a: 1, b:2, c:3, d:4, e:5, f:6, h:8]      // - g:7, + h:8
+        Map m5 = [:]
+
+        delta(m1, m2)
+        delta(m1, m3)
+        delta(m1, m4)
+        delta(m1, m5)
+    }
+
+    static void delta(Map d1, Map d2) {
+        println '============== delta: '
+        println "d1: ${d1}"
+        println "d2: ${d2}"
+        println 'd1-d2: '+ (d1.keySet() - d2.keySet())
+        println 'd2-d1: '+ (d2.keySet() - d1.keySet())
+        def _set = d1.keySet() + d2.keySet()
+        _set.each { key ->
+            if(d1[(key)] != d2[(key)]) {
+                println "key -> d1 - ${key}:${d1[(key)]} , d2 - ${key}:${d2[(key)]}"
+            }
+        }
+    }
+
+    static void demo21() {
+        map_arguments(a:1, b:2, 'michael')
+        map_arguments(null, 'michael')
+        map_arguments2('michael', [a:1, b:2])
+    }
+
+    static void map_arguments(Map params, String s, Boolean b = true) {
+        println "params: " + params
+        println "s: " + s
+        println "b: " + b
+    }
+
+    static void map_arguments2(String s, Map params) {
+        println "params: " + params
+        println "s: " + s
+    }
+
+    static void demo22() {
+        Map m1 = [a:1, b:2, c:3]
+        Map m2 = [b:4]
+        Map m3 = [d:5]
+        println '-----------'
+        println m1.putAll(m2)
+        println m1
+        m1.put('e', 5)
+        println '-----------'
+        println m1
+//        println m1.put('f', 6)
+        println m1+[f:6]
+        println '-----------'
+        println m1
+        println ([a:1, b:2, c:3] + [b:4])
+        println m1+m3
+        println m1
+        println m3
+    }
+
+    static void demo23() {
+        Map m1 = [a:[x:1, y:2, z:3], b:[x:10, y:20, z:30], c:[x:-1, y:-2, z:-3]]
+
+        println m1.find{key,value -> value.x == 1}.key
+        println m1.find{it.value.x == 1}.key
+
+        println m1.findAll{key,value -> value?.x > 0}
+        println m1.findAll{key,value -> value?.x > 10}
+    }
+
+    static void demo24() {
+        Map m1 = [a:1, b:2, c:3]
+        println m1.subMap(m1.keySet() - ['c'])
+    }
+
+    static void demo25() {
+        Map m1 = [a:1, b:2, c:3, d:null]
+        println m1
+        println m1.a
+        println m1.d
+        println m1.e
+        println m1.findAll {it.value != null}
+        println m1.findAll {it.value}
+    }
+
+    static Boolean check_condition(Map params) {
+        Boolean should_throw_exception = false
+        if((!('index' in params)) &&
+                ((!('order_id' in params)) || (!('shipment' in params))) ) {
+            should_throw_exception = true
+        }
+        should_throw_exception
+    }
+
+    static void demo26() {
+        Map params
+        params = [index: 1]
+        println "${params} - ${check_condition(params)}"
+        params = [order_id: 'abc', shipment: 'ABC']
+        println "${params} - ${check_condition(params)}"
+        params = [wait: false]
+        println "${params} - ${check_condition(params)}"
+        params = [order_id: 'abc']
+        println "${params} - ${check_condition(params)}"
+        params = [shipment: 'ABC']
+        println "${params} - ${check_condition(params)}"
+        params = [index: 1, order_id: 'abc']
+        println "${params} - ${check_condition(params)}"
+    }
+
+    static def demo27() {
+        // value is 0 or true or null or '' or things alike, key in map return false
+        def m = [selected:0, continue:true, 1:'a', 'b':2]
+//        m.each { key, value ->
+//            println key
+//            println key.getClass()
+//            println value
+//            println value.getClass()
+//        }
+        println ('selected' in m) // has 'selected' key, but its value is 0/false -> false
+        println ('selected' in m.keySet())
+        println ('continue' in m) // has 'continue' key, but its value is 0/false -> false
+        println ('continue' in m.keySet())
+        println (1 in m)
+        println ('b' in m)
+
+        def x = [a: 1, b: 2]
+        def y = [a: 1, b: 2, c: 3]
+        println (x in y)
+        println x.keySet()
+        println y.keySet()
+        println (x.keySet() in y.keySet())
+        println (y.keySet().contains(x.keySet()))
+        println (y.keySet().containsAll(x.keySet()))
+    }
+
+
+    static List find2(String str, String pattern) {
+        def m = str =~ pattern
+        if(m.find()) {
+            return m[0]
+        }
+        return null
+    }
+
+    static def demo28() {
+        List l1 = [
+                "com\\upscale\\e2e\\spec\\multibrowser\\WbPwaMultiBrowserGebSpec\\001-002-both workbench and pwa-workbench input username.html",
+                "com\\upscale\\e2e\\spec\\multibrowser\\WbPwaMultiBrowserGebSpec\\001-002-both workbench and pwa-workbench input username.png",
+        ]
+        List l2 = [
+                "com\\upscale\\e2e\\spec\\multibrowser\\WbPwaMultiBrowserGebSpec\\001-002-both workbench and pwa-workbench input username_wb_.html",
+                "com\\upscale\\e2e\\spec\\multibrowser\\WbPwaMultiBrowserGebSpec\\001-002-both workbench and pwa-workbench input username_wb_.png",
+        ]
+        List l3 = [
+                "com\\upscale\\e2e\\spec\\multibrowser\\WbPwaMultiBrowserGebSpec\\001-002-both workbench and pwa-workbench input username_wb_.html",
+                "com\\upscale\\e2e\\spec\\multibrowser\\WbPwaMultiBrowserGebSpec\\001-002-both workbench and pwa-workbench input username_wb_.png",
+                "com\\upscale\\e2e\\spec\\multibrowser\\WbPwaMultiBrowserGebSpec\\001-002-both workbench and pwa-workbench input username_pwa_.html",
+                "com\\upscale\\e2e\\spec\\multibrowser\\WbPwaMultiBrowserGebSpec\\001-002-both workbench and pwa-workbench input username_pwa_.png"
+        ]
+//        List l = l1
+
+        [l1, l2, l3]. each { l ->
+            println "--------------- ${l}"
+            def image, html, browsers
+            browsers = l.collect { def m = it =~ /_(\w+)_.\w+/; (m.find()) ? m[0][1] : '' }.unique()
+            println l
+            println browsers
+
+            browsers.each { b ->
+                def _postfix = ''
+                if(b != '') _postfix = "_${b}_"
+                image = l.find { it.endsWith("${_postfix}.png") }
+                html = l.find { it.endsWith("${_postfix}.html") }
+                println b
+                println image
+                println html
+            }
+        }
+
+
+//        if(browsers.size() > 1) {
+//            browsers.each { b ->
+//                image = l1.findAll { it.endsWith("_${b}_.png") }
+//                html = l1.findAll { it.endsWith("_${b}_.html") }
+//                println image
+//                println html
+//            }
+//        } else {
+//            image = l1.findAll { it.endsWith('.png') }
+//            html = l1.findAll { it.endsWith('.html') }
+//            println image
+//            println html
+//        }
+
+    }
+
+    /*
+resource:
+  candidate:
+    job_names: [Daily Export Job, Payment settlement, Order Backend Job]
+    reasons:
+      cancel: ['1', '2', '3', '4', '5']
+      return: ['001', '002', '003', '004']
+      mispick: ['001', '002']
+    locations: [boston-1, california-1, newjersey-1, phoenix-1, ca-store-1, ma-store-1]
+    experience_names: [Upscale Mobile Native Shopping Experience]
+     */
+    static def demo29() {
+        Map skeleton
+//        skeleton = [:]
+        skeleton =
+        [resource: [candidate:
+                            [job_name:[1,2,3,],
+                             reason:[cancel:[1,2,3,],
+//                                     return:[1,2,3,],
+                                     mispick:[1,2,3,]],
+//                             location_name:[1,2,3,],
+                             experience_name:[1,2,3,]],
+                    shipping:[method:[ca:[1,2,3,],
+                                      ny:[1,2,3,]]],
+                    job:[settle:[1,2,3,],
+//                         export:[1,2,3,],
+//                         continuity:[1,2,3,],
+                         refund:[1,2,3,]],
+                    reason:[cancel:[1,2,3,],
+//                            return:[1,2,3,],
+                            mispick:[1,2,3,]],
+                    location:[warehouse:[1,2,3,],
+//                              store:[1,2,3,],
+                              fulfillment_store:[1,2,3,]],
+//                    inventory_quota:0,
+//                    experience:[1,2,3,],
+//                    soc:[1,2,3,],
+                    product:[regular:[1,2,3,],
+                             variant:[[a:1], [b:2], [c:3]]]]]
+
+        // 1st level
+        skeleton.putIfAbsent('resource', [:])
+
+        // 2nd level
+        skeleton.resource.putIfAbsent('candidate', [:])
+        skeleton.resource.putIfAbsent('shipping', [:])
+        skeleton.resource.putIfAbsent('job', [:])
+        skeleton.resource.putIfAbsent('reason', [:])
+        skeleton.resource.putIfAbsent('location', [:])
+        skeleton.resource.putIfAbsent('inventory_quota', 0)
+        skeleton.resource.putIfAbsent('experience', [])
+        skeleton.resource.putIfAbsent('soc', [])
+        skeleton.resource.putIfAbsent('product', [:])
+
+        // 3rd and 4th level
+        // candidate
+        skeleton.resource.candidate.putIfAbsent('job_name', [])
+        skeleton.resource.candidate.putIfAbsent('reason', [:])
+        skeleton.resource.candidate.reason.putIfAbsent('cancel', [])
+        skeleton.resource.candidate.reason.putIfAbsent('return', [])
+        skeleton.resource.candidate.reason.putIfAbsent('mispick', [])
+        skeleton.resource.candidate.putIfAbsent('location_name', [])
+        skeleton.resource.candidate.putIfAbsent('experience_name', [])
+        // shipping
+        skeleton.resource.shipping.putIfAbsent('method', [:])
+        skeleton.resource.shipping.method.putIfAbsent('ca', [])
+        skeleton.resource.shipping.method.putIfAbsent('ny', [])
+        // job
+        skeleton.resource.job.putIfAbsent('settle', [])
+        skeleton.resource.job.putIfAbsent('export', [])
+        skeleton.resource.job.putIfAbsent('continuity', [])
+        skeleton.resource.job.putIfAbsent('refund', [])
+        // reason
+        skeleton.resource.reason.putIfAbsent('cancel', [])
+        skeleton.resource.reason.putIfAbsent('return', [])
+        skeleton.resource.reason.putIfAbsent('mispick', [])
+        // location
+        skeleton.resource.location.putIfAbsent('warehouse', [])
+        skeleton.resource.location.putIfAbsent('store', [])
+        skeleton.resource.location.putIfAbsent('fulfillment_store', [])
+        // experience, only 2nd level
+        // soc, only 2nd leve
+        // product
+        LinkedHashMap
+        skeleton.resource.product.putIfAbsent('regular', [])
+        skeleton.resource.product.putIfAbsent('variant', [])
+        Integer _current = skeleton.resource.product.variant.size()
+        Integer _target = 3
+//        ((_target - _current)>=0 ? (_target - _current) : 0).times {
+        (_target - _current).times {
+            skeleton.resource.product.variant << [:]
+        }
+
+        println skeleton
+    }
 
     static void main(String... args) {
-        demo18()
+        demo23()
     }
 }

@@ -25,11 +25,30 @@ class MySyntaxLab {
         println y.class
     }
 
+    static void demo3() {
+        def x = 3, y = 2.91
+        println Math.abs(x-y) < 0.1
+    }
+
+    static void demo4() {
+        def i = 1
+        println i++
+//        println ++i
+
+        def b = true
+        b &= true
+        println b
+        b &= false
+        println b
+        b &= true
+        println b
+    }
+
     static void _main() {
 
     }
 
     static void main(String... args) {
-        demo2()
+        demo4()
     }
 }

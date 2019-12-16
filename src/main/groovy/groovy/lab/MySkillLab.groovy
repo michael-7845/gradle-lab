@@ -18,12 +18,17 @@ class MySkillLab {
         println a?.b
     }
 
-    static void demo2() {
+    static List _return_list() {
+        [1, 'a']
+    }
 
+    static void demo2() {
+        def l = _return_list()
+        println l
     }
 
     static void _main() {
-        demo1()
+        demo2()
     }
 
     static void main(String... args) {
