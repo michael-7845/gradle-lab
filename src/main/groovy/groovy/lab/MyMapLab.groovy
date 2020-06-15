@@ -401,7 +401,7 @@ class MyMapLab {
 
     static def demo27() {
         // value is 0 or true or null or '' or things alike, key in map return false
-        def m = [selected:0, continue:true, 1:'a', 'b':2]
+        def m = [selected:0, continue:false, 1:'a', 'b':2]
 //        m.each { key, value ->
 //            println key
 //            println key.getClass()
@@ -582,7 +582,17 @@ resource:
         println skeleton
     }
 
+    static demo30() {
+        Map m = [ca: [a: 1, b: 1, c: 1,], ny: [a: 2, b: 2, c: 2,], or: [a: 3, b: 3, c: 3,],]
+//        println m.collect { if(it.value > 2) it }
+        println m.find { it.key == 'ca' }
+        println m.findAll { it.key != 'ca' }
+
+        def name = 'ca.a'
+        println m[(name)]
+    }
+
     static void main(String... args) {
-        demo23()
+        demo30()
     }
 }

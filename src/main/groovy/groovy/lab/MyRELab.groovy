@@ -238,10 +238,12 @@ He repeatedly paid tribute to Communist Party leader Xi Jinping and said that un
         println s
         println s2.replaceFirst(/\[\w+\]$/, '[pwa]')
         println s2
+
+        println 'Co:lor:'.replaceAll(/:$/, '')
     }
 
     static void _main() {
-        demo8()
+        demo9()
     }
 
     static void main(String... args) {

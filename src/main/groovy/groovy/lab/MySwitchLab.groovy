@@ -45,11 +45,34 @@ class MySwitchLab {
     }
 
     static void demo2() {
+        List l = ['a', 2]
+        switch(l) {
+            case(['a', 1]):
+                println '1'
+                break
+            case(['a', 2]):
+                println '2'
+                break
+            case(['b', 1]):
+                println '3'
+                break
+            default:
+                println '0'
+        }
 
+        if(l == ['a', 1]) {
+            println '1'
+        } else if(l == ['a', 2]) {
+            println '2'
+        } else if(l == ['b', 1]) {
+            println '3'
+        } else {
+            println '0'
+        }
     }
 
     static void _main() {
-        demo1()
+        demo2()
     }
 
     static void main(String... args) {

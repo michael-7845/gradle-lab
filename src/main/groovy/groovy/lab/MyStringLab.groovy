@@ -185,8 +185,14 @@ class MyStringLab {
         println 'order#customer'.replaceAll(/\W|\s/, '_')
     }
 
+    static def demo12() {
+        def s = 'Color: DENIM CHAMBRAY'
+        def l = s.split(/\s*:\s*/)
+        l.each { println it }
+    }
+
     static void _main() {
-        demo11()
+        demo12()
     }
 
     static void main(String... args) {

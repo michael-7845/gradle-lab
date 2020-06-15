@@ -256,6 +256,8 @@ public class MyListLab {
 //        1.upto(1) {println it}
 //        1.upto(0) {println it}
 //        1.upto(-1) {println it}
+        0.upto(2) {println it}
+        3.times { println it }
     }
 
     static void demo18() {
@@ -284,6 +286,6 @@ public class MyListLab {
     }
 
     static void main(String... args) {
-        demo20()
+        demo17()
     }
 }
